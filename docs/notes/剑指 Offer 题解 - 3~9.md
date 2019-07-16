@@ -129,6 +129,25 @@ bool Find(int target, vector<vector<int> > array)
 }
 ```
 
+```py
+def Find(target, array):
+    # write code here
+    if not array:
+        return False
+
+    i = 0
+    j = len(array[0]) - 1
+    while i <= len(array) - 1 and j >= 0:
+        if array[i][j] == target:
+            return True
+        elif array[i][j] > target:
+            j -= 1
+        else:
+            i += 1
+    return False
+
+```
+
 # 5. 替换空格
 
 [NowCoder](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
