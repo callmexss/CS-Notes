@@ -107,7 +107,7 @@ public boolean Find(int target, int[][] matrix) {
 }
 ```
 
-```cpp
+```c++
 bool Find(int target, vector<vector<int> > array)
 {
     if (array.empty())
