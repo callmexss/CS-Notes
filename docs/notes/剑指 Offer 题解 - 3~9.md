@@ -59,6 +59,64 @@ private void swap(int[] nums, int i, int j) {
 }
 ```
 
+```cpp
+bool duplicate(int numbers[], int length, int* duplication)
+{
+    if (length <= 0)
+        return false;
+
+    for (int i = 0; i < length; ++i)
+    {
+        while (numbers[i] != i)
+        {
+            if (numbers[i] == numbers[numbers[i]])
+            {
+                *duplication = numbers[i];
+                return true;
+            }
+            swap(numbers[i], numbers[numbers[i]]);
+        }
+    }
+    return false;
+}
+
+```
+
+```python
+class Solution:
+    def duplicate(self, numbers, duplication):
+        # write code here
+        if not numbers:
+            return False
+
+        for i in range(len(numbers)):
+            while numbers[i] != i:
+                loc = numbers[i]
+                if numbers[i] == numbers[loc]:
+                    duplication[0] = numbers[i]
+                    return True
+                numbers[i], numbers[loc] = numbers[loc], numbers[i]
+        return False
+
+```
+
+注意这里 Python 有个坑，不能直接用 `numbers[i], numbers[numbers[i]] = numbers[numbers[i]], numbers[i]`，因为交换过程中索引会发生变化，导致程序死循环。
+
+```python
+li = [1, 2, 3, 4, 5]
+print(li)
+li[0], li[li[0]] = li[li[0]], li[0]
+print(li)
+
+# output
+# tmp = li[0] = 1
+# li[0] = li[li[0]] = li[1] = 2
+# li[li[0]] = li[2] = tmp = 1
+# li = [2, 2, 1, 4, 5]
+[1, 2, 3, 4, 5]
+[2, 2, 1, 4, 5]
+```
+
 # 4. 二维数组中的查找
 
 [NowCoder](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
