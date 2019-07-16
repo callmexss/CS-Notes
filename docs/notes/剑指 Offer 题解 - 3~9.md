@@ -107,13 +107,11 @@ public boolean Find(int target, int[][] matrix) {
 }
 ```
 
-```c++
+```cpp
 bool Find(int target, vector<vector<int> > array)
 {
     if (array.empty())
-    {
         return false;
-    }
 
     int i = 0; // row
     int j = array[0].size() - 1; // column
@@ -121,19 +119,11 @@ bool Find(int target, vector<vector<int> > array)
     while (i <= array.size() - 1 && j >= 0)
     {
         if (target == array[i][j])
-        {
             return true;
-        }
         else if (target > array[i][j])
-        {
-            // row++
-            i++;
-        }
+            i++; // row++
         else // target < array[i][j]
-        {
-            // column--
-            j--;
-        }
+            j--; // column--
     }
     return false;
 }
