@@ -255,6 +255,82 @@ public String replaceSpace(StringBuffer str) {
 }
 ```
 
+```cpp
+void replaceSpace(char *str,int length)
+{
+    if (!str || length <= 0)
+        return ;
+
+    int oldCount = 0; // origin count
+    int replaceCount = 0; // count to be added
+
+    char *p = str;
+    while (*p != '\0')
+    {
+        oldCount++;
+        if (*p == ' ')
+            replaceCount++;
+        p++;
+    }
+    int newCount = oldCount + replaceCount * 2;
+    if (newCount > length)
+        return ;
+
+    int pOldCount = oldCount;
+    int pNewCount = newCount;
+
+    while (pOldCount >= 0 && pNewCount > pOldCount)
+    {
+        if (str[pOldCount] == ' ')
+        {
+            str[pNewCount--] = '0';
+            str[pNewCount--] = '2';
+            str[pNewCount--] = '%';
+        }
+        else
+        {
+            str[pNewCount--] = str[pOldCount];
+        }
+        pOldCount--;
+    }
+}
+
+```
+
+```python
+def replaceSpace(self, s):
+    if not s:
+        return s
+
+    li = [x for x in s]  # str is immutable object, convert it to list
+
+    i = 0
+    old_count = 0
+    replace_count = 0
+    for c in s:
+        if c == ' ':
+            replace_count += 1
+            li.extend(["", ""])
+        old_count += 1
+
+    # there is no '\0' in python, so length minus 1
+    new_count = old_count + replace_count * 2 - 1
+    old_count -= 1
+
+    while old_count >= 0 and new_count > old_count:
+        if li[old_count] == ' ':
+            li[new_count] = '0'
+            li[new_count - 1] = '2'
+            li[new_count - 2] = '%'
+            new_count -= 3
+        else:
+            li[new_count] = li[old_count]
+            new_count -= 1
+        old_count -= 1
+    return ''.join(li)
+
+```
+
 # 6. 从尾到头打印链表
 
 [NowCoder](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
