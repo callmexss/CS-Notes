@@ -624,6 +624,58 @@ public ListNode deleteNode(ListNode head, ListNode tobeDelete) {
 }
 ```
 
+```python
+def deleteDuplication(self, pHead):
+    mHead = ListNode(0)
+    mHead.next = pHead
+    pre = mHead
+    cur = pHead
+    while cur:
+        inner_cur = cur
+        duplicated = 0
+        # use inner_cur find a suitable location
+        # if no duplicated, do not change original cur
+        # else find the next un-duplicated node
+        # than make cur points to inner_cur
+        # for example,
+        # 1->2, do nothing
+        # pre = cur
+        # cur = cur.next
+        # 1->1->2, let inner_cur point to 2
+        # cur = inner_cur
+        # pre.next = cur
+        # noted that cur's location has been changed
+        # so do not change it again
+        while inner_cur:
+            if inner_cur.next:  # not the last one
+                if inner_cur.val == inner_cur.next.val:  # duplicated, pass it
+                    inner_cur = inner_cur.next
+                    duplicated += 1
+                    continue
+                else:  # next is not duplicated with current
+                    if duplicated:  # previous node(s) are duplicated
+                        # pass all the duplicated one
+                        inner_cur = inner_cur.next  # 0->1->1->1->2->... -> 0->2
+                        break
+                    else:
+                        break
+            else:  # the last one
+                if duplicated:
+                    inner_cur = inner_cur.next  # 2->2->None
+                else:
+                    break  # 2->2->3->None
+
+        if duplicated:
+            cur = inner_cur
+            pre.next = cur
+            continue
+        else:
+            pre = cur
+            cur = cur.next
+    return mHead.next
+
+```
+
 # 18.2 删除链表中重复的结点
 
 [NowCoder](https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&tqId=11209&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
