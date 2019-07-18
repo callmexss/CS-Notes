@@ -358,6 +358,34 @@ public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
 }
 ```
 
+```cpp
+vector<int> printListFromTailToHead(ListNode* head)
+{
+    std::vector<int> vec;
+    if (head)
+    {
+        auto ret = printListFromTailToHead(head->next);
+        vec.insert(vec.end(), ret.begin(), ret.end());
+        vec.push_back(head->val);
+    }
+    return vec;
+}
+```
+
+```python
+class Solution3:
+    """Recursion solution."""
+    # when size of listNode is larger than 995,
+    # maximum recursion error will be raised
+    def printListFromTailToHead(self, listNode):
+        li = []
+        if listNode:
+            li.extend(self.printListFromTailToHead(listNode.next))
+            li.append(listNode.val)
+        return li
+
+```
+
 ### 使用头插法
 
 使用头插法可以得到一个逆序的链表。
@@ -390,6 +418,50 @@ public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
 }
 ```
 
+```cpp
+vector<int> printListFromTailToHead(ListNode* head)
+{
+    // insertion
+    ListNode *newHead = new ListNode(0);
+    while (head)
+    {
+        ListNode *saved_next = head->next;
+        head->next = newHead->next;
+        newHead->next = head;
+        head = saved_next;
+    }
+
+    std::vector<int> vec;
+    head = newHead->next;
+    while (head)
+    {
+        vec.push_back(head->val);
+        head = head->next;
+    }
+    return vec;
+}
+```
+
+```python
+class Solution:
+    """Insert at the begining."""
+    def printListFromTailToHead(self, listNode):
+        head = ListNode(0)
+        while listNode:
+            saved_next = listNode.next
+            listNode.next = head.next
+            head.next = listNode
+            listNode = saved_next
+
+        li = []
+        listNode = head.next
+        while listNode:
+            li.append(listNode.val)
+            listNode = listNode.next
+
+        return li
+```
+
 ### 使用栈
 
 栈具有后进先出的特点，在遍历链表时将值按顺序放入栈中，最后出栈的顺序即为逆序。
@@ -408,6 +480,31 @@ public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
         ret.add(stack.pop());
     return ret;
 }
+```
+
+```cpp
+    vector<int> printListFromTailToHead(ListNode* head)
+    {
+        std::vector<int> vec;
+        while (head)
+        {
+            vec.push_back(head->val);
+            head = head->next;
+        }
+        reverse(vec.begin(), vec.end());
+        return vec;
+    }
+```
+
+```python
+class Solution:
+    """Simple use a stack."""
+    def printListFromTailToHead(self, listNode):
+        stack = []
+        while listNode:
+            stack.append(listNode.val)
+            listNode = listNode.next
+        return stack[::-1]
 ```
 
 # 7. 重建二叉树
