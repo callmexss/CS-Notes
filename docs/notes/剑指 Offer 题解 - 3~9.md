@@ -546,6 +546,23 @@ private TreeNode reConstructBinaryTree(int[] pre, int preL, int preR, int inL) {
 }
 ```
 
+```python
+class Solution:
+    def reConstructBinaryTree(self, pre, tin):
+        if not pre or not tin:
+            return None
+
+        if len(pre) == len(tin) == 1:
+            return TreeNode(pre[0])
+
+        root = TreeNode(pre[0])
+        root_index = tin.index(root.val)
+        root.left = self.reConstructBinaryTree(pre[1:root_index+1], tin[:root_index])
+        root.right = self.reConstructBinaryTree(pre[root_index+1:], tin[root_index+1:])
+        return root
+
+```
+
 # 8. 二叉树的下一个结点
 
 [NowCoder](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
